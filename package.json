@@ -1,0 +1,37 @@
+{
+  "name": "ur-codingchallenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch",
+    "serve": "live-server public/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheHonorRise/UR-codingchallenge.git"
+  },
+  "author": "The Honor Rise",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheHonorRise/UR-codingchallenge/issues"
+  },
+  "homepage": "https://github.com/TheHonorRise/UR-codingchallenge#readme",
+  "dependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "live-server": "^1.2.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "webpack": "^4.32.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "webpack-cli": "^3.3.2"
+  }
+}
