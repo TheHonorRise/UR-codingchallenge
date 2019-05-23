@@ -1,21 +1,8 @@
-
-function middle(req, res, next){
-    console.log('trying middleware');
-    next();
-}
-
-function getShops(req, res) {
-    console.log('req handler');
-    res.send('list of shops')
-}
+import {signUpUser, signInUser} from "../controllers/userController";
 
 export default function routes(app) {
-    app.route('/shops')
-        .get(middle,getShops);
-
-
-
-
+    // app.route('/shops')
+    //     .get(middle,getShops);
 
     app.route('/register')
         .post(signUpUser);
