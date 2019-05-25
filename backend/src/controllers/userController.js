@@ -23,8 +23,8 @@ export const signUpUser = async (req, res) => {
 
 export const signInUser = async (req, res) => {
     let user = await User.findOne({email: req.body.email });
-    console.log(user);
-    console.log(req.body);
+    // console.log(user);
+    // console.log(req.body);
     if (!user) return res.status(404).json({error : "invalid email or password"});
     let pass = await bcrypt.compareSync(req.body.password, user.password);
     console.log(pass);

@@ -21,13 +21,14 @@ export const UserSchema = Schema({
     },
     likedShops: [
         {
-            shopId: String
+            type: Schema.Types.ObjectId,
+            ref: 'shops'
         }
     ],
     dislikedShops: [
         {
-            shopId: String,
-            dislikeTime: Date
+            type: Schema.Types.ObjectId,
+            ref: 'shops'
         }
     ]
 });
