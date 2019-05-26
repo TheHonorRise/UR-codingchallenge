@@ -1,6 +1,7 @@
 const initialState = {
-    isLogged: false,
-    user: {}
+    isLogged: true,
+    user: {},
+    location: null
 };
 
  const userReducer = (state = initialState, action) => {
