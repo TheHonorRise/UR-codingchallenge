@@ -92,3 +92,13 @@ export const removePreferredShop = (req, res)=>{
         }
     });
 };
+
+export const addDislikedShop = (req, res) => {
+    User.update({_id: req.decoded._id}, {$push: {dislikedShops: {_id: '5a0c6b83fd3eb67969316dd5', dislikeTime: Date.now()}}}, function (error, success) {
+        if (error) {
+            res.status(400).send("not added");
+        } else {
+            res.status(200).send("added successfully");
+        }
+    });
+};

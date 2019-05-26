@@ -1,6 +1,12 @@
 import {signUpUser, signInUser} from "../controllers/userController";
 import {jwtMiddleware} from "../middlewares/jwtMiddleware";
-import {addPreferredShop, getNearbyshops, getPreferedShops, removePreferredShop} from "../controllers/shopController";
+import {
+    addDislikedShop,
+    addPreferredShop,
+    getNearbyshops,
+    getPreferedShops,
+    removePreferredShop
+} from "../controllers/shopController";
 
 
 
@@ -14,6 +20,7 @@ export default function routes(app) {
         .delete(jwtMiddleware,removePreferredShop);
 
     app.route('/dislike')
+        .post(jwtMiddleware,addDislikedShop);
 
     app.route('/register')
         .post(signUpUser);
