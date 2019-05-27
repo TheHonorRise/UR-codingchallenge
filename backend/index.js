@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import routes from './src/routes/NbShopsRoutes'
 import config from './config';
+import cors from "cors";
 
 const app = express();
 const PORT = config.PORT;
@@ -15,7 +16,7 @@ mongoose.connect('mongodb://localhost/UR-Shops', {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(cors())
 
 routes(app);
 

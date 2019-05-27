@@ -27,8 +27,14 @@ export const UserSchema = Schema({
     ],
     dislikedShops: [
         {
-            type: Schema.Types.ObjectId,
-            ref: 'shops'
+            _id: {
+                type: Schema.Types.ObjectId,
+                ref: 'shops'
+            },
+            dislikeTime: {
+                type: Date,
+                default: Date.now()
+            }
         }
     ]
 });
