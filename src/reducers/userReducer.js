@@ -1,16 +1,26 @@
+
 const initialState = {
-    isLogged: true,
-    user: {},
-    location: null
+            isLogged: false,
+            loginError: '',
+            user: null,
+            location: null
 };
 
  const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case "login":
-            state = {
-                ...state,
-                isLogged: true
-            };
+            fetch('http://localhost:3030/login',{
+                method: 'post',
+                headers: {'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    email: action.payload.login,
+                    password: action.payload.password
+                })
+            }).then(res=>res.json())
+                .then( res=>{
+                    return Object.assign(state, {isLogged: true, user: res})
+                })
+                .catch(e=>console.log(e));
             break;
         case "logout":
             state = {

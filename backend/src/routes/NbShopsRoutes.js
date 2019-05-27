@@ -12,7 +12,7 @@ import {
 
 export default function routes(app) {
     app.route('/shops')
-        .get(jwtMiddleware,getNearbyshops);
+        .post(jwtMiddleware,getNearbyshops);
 
     app.route('/Preferred')
         .get(jwtMiddleware,getPreferedShops)

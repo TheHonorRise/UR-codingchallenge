@@ -1,0 +1,6 @@
+.class{
+    background-color: slateblue;
+}
+.is-active{
+    color: brown !important;
+}
