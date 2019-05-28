@@ -11,3 +11,8 @@ npm start-backend
 ```
 npm start-backend
 ```
+
+### Built With
+* ReactJs
+* MongoDb
+* ExpressJs
