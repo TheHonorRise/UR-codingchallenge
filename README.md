@@ -1,7 +1,7 @@
 # UR-codingchallenge
 ## install dependencies : 
 ```
-npm start
+npm install
 ```
 ## run Backend server:
 ```
