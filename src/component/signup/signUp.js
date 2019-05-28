@@ -72,7 +72,6 @@ class SignUp extends Component {
                                 <div className="form-group">
                                     <input type="password" className="form-control" placeholder="Your Password *" value={this.state.password} onChange={(e)=>this.passwordChange(e)}/>
                                 </div>
-
                                 <div className="form-group">
                                     <input type="submit" className="btnSubmit" value="Register" onClick={(e)=>this.submit(e)}/>
                                 </div>
