@@ -1,35 +1,37 @@
 import React, {Component} from 'react';
 import Header from "../header";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
-class Login extends Component {
+class SignUp extends Component {
     constructor(props){
         super(props);
         this.state = {
-            login: 'abderafii.bel@gmail.com',
-            password: 'myPassword',
-            isLogged: Cookies.get('access-token'),
+            username: '',
+            email: '',
+            password: '',
             status: 0,
             error: ''
-        };
-        if (Cookies.get('access-token')){
-            this.props.history.push('/nearby');
         }
     }
-    loginChange = (e)=>{
-        this.setState({login: e.target.value})
-    };
     passwordChange = (e)=>{
         this.setState({password: e.target.value})
     };
+    emailChange = (e)=>{
+        this.setState({email: e.target.value})
+    };
+    usernameChange = (e)=>{
+        this.setState({username: e.target.value})
+    };
+
 
     submit = (e)=>{
         e.preventDefault();
-        fetch('http://localhost:3030/login',{
+        fetch('http://localhost:3030/register',{
             method: 'post',
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify({
-                email: this.state.login,
+                username: this.state.username,
+                email: this.state.email,
                 password: this.state.password
             })
         }).then(res=>{
@@ -40,9 +42,7 @@ class Login extends Component {
 
             .then( res=>{
                 if (this.state.status == 200){
-                    Cookies.set('access-token', res.access_token);
-                    this.setState({isLogged: true});
-                    this.props.history.push('/nearby');
+                    this.props.history.push('/login');
                 } else {
                     this.setState({
                         error: res.error
@@ -57,7 +57,6 @@ class Login extends Component {
 
     render() {
         return (
-
             <div className="container-fluid">
                 <Header/>
                 <div className="container">
@@ -65,14 +64,17 @@ class Login extends Component {
                         <div className="col-md-6 mx-auto mt-5">
                             <form>
                                 <div className="form-group">
-                                    <input type="text" className="form-control" placeholder="Your Email *" value={this.state.login} onChange={(e)=>this.loginChange((e))}/>
+                                    <input type="text" className="form-control" placeholder="Your Username *" value={this.state.username} onChange={(e)=>this.usernameChange((e))}/>
+                                </div>
+                                <div className="form-group">
+                                    <input type="text" className="form-control" placeholder="Your Email *" value={this.state.email} onChange={(e)=>this.emailChange((e))}/>
                                 </div>
                                 <div className="form-group">
                                     <input type="password" className="form-control" placeholder="Your Password *" value={this.state.password} onChange={(e)=>this.passwordChange(e)}/>
                                 </div>
-                                <span>{this.state.error}</span>
+
                                 <div className="form-group">
-                                    <input type="submit" className="btnSubmit" value="Login" onClick={(e)=>this.submit(e)}/>
+                                    <input type="submit" className="btnSubmit" value="Register" onClick={(e)=>this.submit(e)}/>
                                 </div>
                             </form>
                         </div>
@@ -83,4 +85,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default SignUp;

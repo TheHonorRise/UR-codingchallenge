@@ -1,29 +1,27 @@
 import React, {Component} from 'react';
 import ReactDom from 'react-dom';
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import {createStore} from "redux";
-import {Provider} from "react-redux";
-import userReducer from "./reducers/userReducer";
 import PrivateRoute from './middleware/privateRoute';
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/style.css';
-import Header from "./component/header";
+
 import PreferredShops from "./component/preferred/preferredShops";
-import Login from "./component/login/login"
-import Index from './component/index/index'
+import Login from "./component/login/login";
+import Index from './component/index/index';
+import SignUp from './component/signup/signUp';
+import Cookies from "js-cookie";
 
-
-const store = createStore(userReducer);
-
-store.subscribe(() => {
-    console.log("Store Updated!", store.getState());
-});
-
-store.dispatch({type: 'logout'});
+console.log(Cookies.get('access-token'));
 
 const redir = ()=>{
    return <Redirect to="/nearby"/>;
 };
+const Logout = ()=>{
+    Cookies.remove('access-token');
+    return <Redirect to="/login"/>;
+};
+
+
 const App = () => {
     return (
         <BrowserRouter>
@@ -31,7 +29,10 @@ const App = () => {
                 <PrivateRoute exact path="/" component={redir}/>
                 <PrivateRoute exact path="/nearby" component={Index}/>
                 <PrivateRoute exact path="/Preferred" component={PreferredShops}/>
+                <Route exact path='/logout' component={Logout}/>
+                <Route exact path="/signUp" component={SignUp}/>
                 <Route exact path="/login" component={Login}/>
+
                 <Route/>
             </Switch>
         </BrowserRouter>
@@ -39,7 +40,6 @@ const App = () => {
 };
 
 
-ReactDom.render(
-    <Provider store={store}><App/></Provider>,
+ReactDom.render(<App/>,
     document.getElementById('root')
 );

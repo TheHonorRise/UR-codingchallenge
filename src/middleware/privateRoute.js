@@ -1,13 +1,13 @@
 import {Redirect, Route} from "react-router-dom";
-import {connect} from 'react-redux';
 import React from 'react';
+import Cookies from 'js-cookie';
 
 const PrivateRoute = ({ component: Component, ...props }) => {
     return (
         <Route
             {...props}
             render={innerProps =>
-                props.user ?
+                Cookies.get('access-token') ?
                     <Component {...innerProps} />
                     :
                     <Redirect to="/login" />
@@ -16,11 +16,7 @@ const PrivateRoute = ({ component: Component, ...props }) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        user: state.isLogged,
-    };
-};
 
 
-export default connect(mapStateToProps,null)(PrivateRoute);
+
+export default PrivateRoute;

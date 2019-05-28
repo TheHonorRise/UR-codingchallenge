@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Header from "../header";
-import {connect} from "react-redux";
+import Cookies from 'js-cookie';
 
 class Index extends Component {
     constructor(props){
@@ -18,7 +18,7 @@ class Index extends Component {
         fetch('http://localhost:3030/shops',{
             method: 'post',
             headers: {
-                'access_token': this.props.access_token,
+                'access_token': Cookies.get('access-token'),
                 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify({
                 location: {
@@ -33,6 +33,28 @@ class Index extends Component {
                 })
             })
     };
+
+    likeShop = (e)=>{
+        console.log(e.target);
+        fetch('http://localhost:3030/preferred',{
+            method: 'post',
+            headers: {
+                'access_token': Cookies.get('access-token'),
+                'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+                shopId: e.target.id
+            })
+        }).then(res=>res.json())
+            .then(res=>{
+                console.log(res);
+                navigator.geolocation.getCurrentPosition(this.showPosition);
+            })
+    };
+
+    dislikeShop = (e)=>{
+
+    };
+
     render() {
 
         let shops = this.state.shops.map((s)=>{
@@ -41,8 +63,8 @@ class Index extends Component {
                     <img className="card-img-top" src="http://placehold.it/150x150" alt="Card image cap"/>
                     <div className="card-body">
                         <h5 className="card-title">{s.name}</h5>
-                        <a href="#" className="btn btn-primary mr-2">LIkE</a>
-                        <a href="#" className="btn btn-danger">DISLIKE</a>
+                        <span href="#" className="btn btn-primary mr-2" id={s._id} onClick={(e)=>this.likeShop(e)}>like</span>
+                        <span href="#" className="btn btn-danger" id={s._id}>dislike</span>
                     </div>
                 </div>
             </div>)
@@ -59,10 +81,6 @@ class Index extends Component {
         );
     }
 }
-const mapStateToProps = (state) => {
-    return {
-        access_token: state.user.access_token,
-    };
-};
 
-export default connect(mapStateToProps,null)(Index);
+
+export default Index;

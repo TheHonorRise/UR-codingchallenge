@@ -14,7 +14,8 @@ const User = mongoose.model('User', UserSchema);
 export const getNearbyshops = async (req, res) => {
     let myLocation = [req.body.location.latitude, req.body.location.longitude];
     try {
-        let shops = await Shop.find({});
+        let user = await User.findOne({_id: req.decoded._id});
+        let shops = await Shop.find({_id: {$nin: user.likedShops}});
         shops = _.sortBy(shops, [(s) => {
             let radlat1 = Math.PI * myLocation[0] / 180;
             let radlat2 = Math.PI * s.location.coordinates[0] / 180;
@@ -46,7 +47,7 @@ export const getNearbyshops = async (req, res) => {
 
 export const getPreferedShops = async (req, res) => {
     let user = await User.findOne({_id: req.decoded._id});
-    let myLocation = [req.body.location.latitude, req.body.location.longitude];
+    let myLocation = [req.query.latitude, req.query.longitude];
     Shop.find({ _id: {$in: user.likedShops}}, async (error, success) => {
         if (error) {
             console.log(error);
@@ -76,19 +77,19 @@ export const getPreferedShops = async (req, res) => {
 export const addPreferredShop = (req, res)=>{
     User.update({_id: req.decoded._id}, {$push: {likedShops: req.body.shopId}}, function (error, success) {
         if (error) {
-            res.status(400).send("not added");
+            res.status(400).json({success:"not added"});
         } else {
-            res.status(200).send("added successfully");
+            res.status(200).json({success:"added successfully"});
         }
     });
 };
 
 export const removePreferredShop = (req, res)=>{
-    User.update({_id: req.decoded._id}, {$pull: {likedShops: req.body.shopId}}, function (error, success) {
+    User.updateOne({_id: req.decoded._id}, {$pull: {likedShops: req.body.shopId}}, function (error, success) {
         if (error) {
-            res.status(400).send("net removed");
+            res.status(400).json({success:"net removed"});
         } else {
-            res.status(200).send("removed successfully");
+            res.status(200).json({success:"removed successfully"});
         }
     });
 };

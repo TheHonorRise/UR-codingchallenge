@@ -15,9 +15,9 @@ export const signUpUser = async (req, res) => {
     newUser.password = hash;
     newUser.save((err, User)=>{
         if(err){
-            res.status(400).json(err);
+            res.status(400).json({error: err});
         }else {
-            res.status(201).send('you can login now');
+            res.status(200).json({success:'you can login now'});
         }
     })
 };
