@@ -10,7 +10,7 @@ const User = mongoose.model('User', UserSchema);
 export const signUpUser = async (req, res) => {
     console.log(req.body);
     let newUser = new User(req.body);
-    let hash = bcrypt.hashSync('myPassword', config.salt);
+    let hash = bcrypt.hashSync(req.body.password, config.salt);
 
     newUser.password = hash;
     newUser.save((err, User)=>{
