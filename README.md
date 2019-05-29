@@ -5,11 +5,11 @@ npm install
 ```
 ## run Backend server:
 ```
-npm start-backend
+npm run start-backend
 ```
 ## run Frontend webpack server 
 ```
-npm start-backend
+npm run serve-frontend
 ```
 
 ### Built With
